@@ -25,9 +25,20 @@ public class User {
     private String password;
     @Column(nullable = false, length = 50)
     private String email;
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
-    private String oauth;
+    private String role;
+    private String provider;
+    private String providerId;
     @CreationTimestamp
     private Timestamp createDate;
+
+    @Builder
+    public User(String username, String password, String email, String role, String provider, String providerId, Timestamp createDate) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.createDate = createDate;
+    }
 }
