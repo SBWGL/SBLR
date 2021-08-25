@@ -36,11 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/","/css/**","/fonts/**","/js/**","/scss/**","/images/**","/image/**","/loginForm").permitAll()
-                .antMatchers("/user/**").authenticated()// 인증만 되면 들어갈 수 있는 주소
-                .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/user/**").authenticated()// 인증만 되면 들어갈 수 있는 주소
+//                .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+//                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest()
-                .authenticated()
+                .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")

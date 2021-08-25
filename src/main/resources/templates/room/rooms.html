@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default"> <head>
+  <head>
+    <title>Roxandrea - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/css/aos.css">
+
+    <link rel="stylesheet" href="/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="/css/flaticon.css">
+    <link rel="stylesheet" href="/css/icomoon.css">
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+
+  <header th:replace="/fragments/header :: headerFragment"></header>
+    <!-- END nav -->
+		<div class="hero-wrap" style="background-image: url('images/bg_1.jpg');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+          <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+          	<div class="text">
+	            <p class="breadcrumbs mb-2"><span class="mr-2"><a th:href="@{/}">Home</a></span> <span>About</span> <span class="mr-2"><a th:href="@{/rooms/saveForm}">addRoom</a></span></p>
+	            <h1 class="mb-4 bread">Rooms</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <section class="ftco-section bg-light ftco-no-pb">
+    	<div class="container-fluid px-0">
+    		<div class="row no-gutters justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+          	<span class="subheading">Roxandrea Rooms</span>
+            <h2 class="mb-4">Hotel Master's Rooms</h2>
+          </div>
+        </div>  
+<!--    		<div class="row no-gutters">-->
+                    <div th:each="room : ${rooms}">
+<!--    			<div class="col-lg-6">-->
+    				<div class="room-wrap d-md-flex">
+                        <img th:src="|/getImages/${room.getStoreImageName()}|" class="img"/>
+    					<div class="half left-arrow d-flex align-items-center">
+    						<div class="text p-4 p-xl-5 text-center">
+    							<p class="star mb-0"><span class="ion-ios-star"></span><span class="ion-ios-star"></span><span class="ion-ios-star"></span><span class="ion-ios-star"></span><span class="ion-ios-star"></span></p>
+    							<p class="mb-0"><span class="price mr-1" th:text="|${#numbers.formatInteger(room.getPrice(),3,'COMMA')}원|">$120.00</span><br> <span class="per">per night</span></p>
+	    						<h3 class="mb-3" th:text="${room.roomType}">Suite Room</h3>
+	    						<p class="pt-1"><a class="btn-custom px-3 py-2" type="button" th:href="@{|/rooms/detailRoom/${room.id}|}">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+    						</div>
+    					</div>
+    				</div>
+                        <br>
+                        <br>
+                        <br>
+<!--                    </div>-->
+<!--    			</div>-->
+    		</div>
+
+            <div class="row no-gutters justify-content-center">
+                <div class="heading-section text-center ftco-animate">
+            <div th:if="${!rooms.isEmpty()}">
+                <nav
+                        th:with="start=${T(Math).floor(rooms.number/10)*10 + 1},
+                        last=(${start + 9 < rooms.totalPages ? start + 9 : rooms.totalPages})"
+                        aria-label="Page navigation"
+                >
+                    <ul class="pagination ">
+
+<!--                        <li th:classappend="${pageNumber + 1 <= pageSize + 1} ? 'disabled'" class="page-item">-->
+<!--                            <a class="page-link" th:href="@{/rooms(page=1)}">-->
+<!--                                <span>&laquo;</span>-->
+<!--                                <span class="sr-only">First</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+
+                        <li th:classappend="${rooms.first} ? 'disabled'" class="page-item">
+                            <a class="page-link" th:href="${rooms.first} ? '#' : @{/rooms(page=${rooms.number-1})}" aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+
+                        <li th:each="page: ${#numbers.sequence(start-1, last-1)}" th:classappend="${page == rooms.number} ? 'active'" class="page-item">
+                            <a th:text="${page+1}" class="page-link" th:href="@{/rooms(page=${page})}"></a>
+                        </li>
+
+                        <li th:classappend="${rooms.last} ? 'disabled'" class="page-item">
+                            <a class="page-link" th:href="${rooms.last} ? '#' : @{/rooms(page=${rooms.number+1})}" aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+
+<!--                        <li th:classappend=" ${T(Math).floor(totalPages/10)*10 <= startPage} ? 'disabled'" class="page-item">-->
+<!--                            <a class="page-link" th:href="@{/rooms(page=${totalPages})}">-->
+<!--                                <span>&raquo;</span>-->
+<!--                                <span class="sr-only">First</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+
+                    </ul>
+                </nav>
+            </div>
+            </div>
+            </div>
+
+    	</div>
+    </section>
+
+	<footer th:replace="/fragments/footer :: footerFragment"></footer>
+
+</body>
+
+  <!-- loader -->
+
+
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/jquery.easing.1.3.js"></script>
+  <script src="/js/jquery.waypoints.min.js"></script>
+  <script src="/js/jquery.stellar.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/jquery.magnific-popup.min.js"></script>
+  <script src="/js/aos.js"></script>
+  <script src="/js/jquery.animateNumber.min.js"></script>
+  <script src="/js/jquery.mb.YTPlayer.min.js"></script>
+  <script src="/js/bootstrap-datepicker.js"></script>
+  <!-- // <script src="js/jquery.timepicker.min.js"></script> -->
+  <script src="/js/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="/js/google-map.js"></script>
+  <script src="/js/main.js"></script>
+    
+
+</html>
