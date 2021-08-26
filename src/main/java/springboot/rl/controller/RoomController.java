@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import springboot.rl.config.auth.PrincipalDetails;
 import springboot.rl.file.FileStore;
+import springboot.rl.model.Review;
 import springboot.rl.model.Room;
 import springboot.rl.model.roomForm.RoomSaveForm;
 import springboot.rl.model.roomForm.RoomUpdateForm;
@@ -23,6 +24,7 @@ import springboot.rl.service.RoomService;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Slf4j
@@ -59,13 +61,14 @@ public class RoomController {
                           @RequestParam String selected) throws IOException {
         if (bindingResult.hasErrors()) return "room/addRoom";
         roomService.save(form, selected);
-        return "room/rooms";
+        return "redirect:/rooms";
     }
 
     @GetMapping("/rooms/detailRoom/{id}")
-    public String detailRoom(@PathVariable int id, Model model){
+    public String detailRoom(@PathVariable int id, Model model,@AuthenticationPrincipal PrincipalDetails principal){
         Room room = roomService.findRoom(id);
         model.addAttribute("room",room);
+        model.addAttribute("user",principal.getUser());
         return "room/detailRoom";
     }
 
@@ -91,4 +94,11 @@ public class RoomController {
         model.addAttribute("user",principal);
         return "pay/pay";
     }
+
+    @GetMapping("/rooms/detailRoom/{id}/review/{reviewId}")
+    public String deleteReview(@PathVariable("id") int roomId, @PathVariable int reviewId){
+        roomService.deleteReview(reviewId);
+        return "redirect:/rooms/detailRoom/{id}";
+    }
+
 }

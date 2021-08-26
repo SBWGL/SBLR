@@ -1,11 +1,13 @@
 package springboot.rl.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -23,9 +25,14 @@ public class Room {
     private String storeImageName;
     @Column(nullable = false, length = 100, unique = true)
     private String roomName;
-    @Lob// 대용량 데이터
+    @Column(nullable = false,length = 200)
     private String roomDesc;
     private String roomType;
     private int maxPerson;
     private int price;
+
+    @OneToMany(mappedBy = "room",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)// 하나의 방에는 여러개의 리뷰가 있다.
+    @JsonIgnoreProperties({"room"})// 무한 참조 방지
+    @OrderBy("id desc")
+    private List<Review> review;
 }

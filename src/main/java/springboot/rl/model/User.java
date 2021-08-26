@@ -1,5 +1,6 @@
 package springboot.rl.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -30,6 +32,11 @@ public class User {
     private String providerId;
     @CreationTimestamp
     private Timestamp createDate;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"user"})
+    @OrderBy("id desc")
+    private List<Review> reply;
 
     @Builder
     public User(String username, String password, String email, String role, String provider, String providerId, Timestamp createDate) {
