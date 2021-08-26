@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import springboot.rl.file.FileStore;
 import springboot.rl.model.Room;
 import springboot.rl.model.roomForm.RoomSaveForm;
+import springboot.rl.model.roomForm.RoomUpdateForm;
+import springboot.rl.model.roomForm.UploadFile;
 import springboot.rl.service.RoomService;
 
 import java.io.IOException;
@@ -63,5 +65,25 @@ public class RoomController {
         Room room = roomService.findRoom(id);
         model.addAttribute("room",room);
         return "room/detailRoom";
+    }
+
+    @GetMapping("/rooms/detailRoom/{id}/updateForm")
+    public String updateForm(@PathVariable int id, Model model){
+        Room room = roomService.findRoom(id);
+        RoomUpdateForm roomUpdateForm = roomService.transRoom(room);
+        model.addAttribute("room",roomUpdateForm);
+        return "room/editRoom";
+    }
+
+    @PostMapping("/rooms/detailRoom/{id}/updateForm")
+    public String update(@PathVariable int id, @RequestParam String selected, @ModelAttribute("room") RoomSaveForm form,
+                         BindingResult bindingResult) throws IOException {
+        roomService.update(id,form,selected);
+        return "room/detailRoom";
+    }
+
+    @GetMapping("/rooms/detailRoom/{id}/payForm")
+    public String payForm(@PathVariable int id){
+        return "";
     }
 }

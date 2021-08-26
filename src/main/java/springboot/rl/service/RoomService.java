@@ -8,11 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 import springboot.rl.file.FileStore;
 import springboot.rl.model.Room;
 import springboot.rl.model.roomForm.RoomSaveForm;
+import springboot.rl.model.roomForm.RoomUpdateForm;
 import springboot.rl.model.roomForm.UploadFile;
 import springboot.rl.repository.RoomRepository;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -48,5 +50,48 @@ public class RoomService {
         return roomRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("요청하신 객실을 찾을 수 없습니다.");
         });
+    }
+
+    @Transactional
+    public void update(int id,RoomSaveForm form, String selected) throws IOException {
+        Room room = roomRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("요청하신 Id를 찾을 수 없습니다.");
+        });
+        UploadFile uploadFile = fileStore.storeFile(form.getRoomImage());
+        room.setRoomName(form.getRoomName());
+        room.setRoomDesc(form.getRoomDesc());
+        if (selected.equals(null)){
+            room.setRoomType(form.getRoomType());
+        }else{
+            room.setRoomType(selected);
+        }
+        room.setId(form.getId());
+        room.setPrice(form.getPrice());
+        room.setMaxPerson(form.getMaxPerson());
+        if (uploadFile.equals(null)){
+            UploadFile image = findImage(id);
+            room.setUploadImageName(image.getUploadImageName());
+            room.setStoreImageName(image.getStoreImageName());
+        }else {
+            room.setUploadImageName(uploadFile.getUploadImageName());
+            room.setStoreImageName(uploadFile.getStoreImageName());
+        }
+    }
+
+    public RoomUpdateForm transRoom(Room room){
+        RoomUpdateForm roomUpdateForm = RoomUpdateForm.builder()
+                .roomName(room.getRoomName())
+                .roomDesc(room.getRoomDesc())
+                .roomType(room.getRoomType())
+                .roomImage(new UploadFile(room.getUploadImageName(), room.getStoreImageName()))
+                .price(room.getPrice())
+                .id(room.getId())
+                .maxPerson(room.getMaxPerson())
+                .build();
+        return roomUpdateForm;
+    }
+
+    public UploadFile findImage(int id){
+        return roomRepository.findImage(id);
     }
 }
