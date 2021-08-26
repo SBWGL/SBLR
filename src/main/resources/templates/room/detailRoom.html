@@ -31,7 +31,7 @@
 
   <header th:replace="/fragments/header :: headerFragment"></header>
     <!-- END nav -->
-		<div class="hero-wrap" style="background-image: url('images/bg_1.jpg');">
+		<div class="hero-wrap" style="background-image: url('/images/bg_1.jpg');">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
@@ -68,9 +68,10 @@
 	    							<li><span>View:</span> Sea View</li>
 	    							<li><span>Bed:</span> 2</li>
 	    						</ul>
-                                <p class="pt-1"><a class="btn-custom px-3 py-2" type="button" th:href="@{|/rooms/detailRoom/${room.id}/payForm|}">결제하기 <span class="icon-long-arrow-right"></span></a></p>
+
     						</div>
 <!--    						<p>Italic Mountains의 첫 번째 언덕에 도착했을 때 그녀는 고향 Bookmarksgrove의 스카이라인, Alphabet Village의 헤드라인이자 자신의 길인 Line Lane의 하위 라인을 마지막으로 보았습니다. 가엾은 질문이 그녀의 뺨을 스쳐지나갔고 그녀는 계속해서 Italic Mountains의 첫 번째 언덕에 도착했을 때 그녀의 고향인 Bookmarksgrove의 스카이라인, Alphabet Village의 헤드라인이자 그녀 자신의 길의 하위 라인을 마지막으로 다시 보았습니다. 라인 레인. 가엾은 질문이 그녀의 뺨을 스쳐지나갔고, 그녀는 계속해서 길을 갔습니다.</p>-->
+                    <h2 class="pt-2"><a class="btn-custom px-8 py-3" type="button" th:href="@{|/rooms/detailRoom/${room.id}/payForm|}">결제하기 <span class="icon-long-arrow-right"></span></a></h2>
           		</div>
 
 <!--          		<div class="col-md-12 room-single ftco-animate mb-5 mt-4">-->
@@ -84,6 +85,7 @@
 <!--          		</div>-->
 
           		<div class="col-md-12 properties-single ftco-animate mb-5 mt-4">
+
 <!--          			<h4 class="mb-4">Review &amp; Ratings</h4>-->
 <!--          			<div class="row">-->
 <!--          				<div class="col-md-6">-->

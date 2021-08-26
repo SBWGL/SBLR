@@ -8,10 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import springboot.rl.config.auth.PrincipalDetails;
 import springboot.rl.file.FileStore;
 import springboot.rl.model.Room;
 import springboot.rl.model.roomForm.RoomSaveForm;
@@ -83,7 +85,10 @@ public class RoomController {
     }
 
     @GetMapping("/rooms/detailRoom/{id}/payForm")
-    public String payForm(@PathVariable int id){
-        return "";
+    public String payForm(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetails principal){
+        Room room = roomService.findRoom(id);
+        model.addAttribute("room",room);
+        model.addAttribute("user",principal);
+        return "pay/pay";
     }
 }

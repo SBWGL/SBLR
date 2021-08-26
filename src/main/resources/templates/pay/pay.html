@@ -13,12 +13,12 @@
 IMP.init('imp84907545'); //iamport 대신 자신의 "가맹점 식별코드"를 사용하시면 됩니다
 IMP.request_pay({
 	merchant_uid : 'merchant_' + new Date().getTime(),
-	name : '결제테스트',
-	amount : 14000,
-	buyer_email : 'iamport@siot.do',
-	buyer_name : '구매자',
+	name : '/*[[${room.getRoomName()}]]*/',
+	amount : '/*[[${room.getPrice()}]]*/',
+	buyer_email : '/*[[${user.getUser().getEmail()}]]*/',
+	buyer_name : '/*[[${user.getUser().getUsername()}]]*/',
 	buyer_tel : '010-1234-5678',
-	buyer_addr : '서울특별시 강남구 삼성동',
+	buyer_addr : '경기도 안양시 만안구',
 	buyer_postcode : '123-456'
 }, function(rsp) {
 	if ( rsp.success ) {
