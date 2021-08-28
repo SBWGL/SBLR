@@ -8,13 +8,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import springboot.rl.config.auth.PrincipalDetails;
+import springboot.rl.dto.ResponseDto;
 import springboot.rl.file.FileStore;
+import springboot.rl.model.Reservation;
 import springboot.rl.model.Review;
 import springboot.rl.model.Room;
 import springboot.rl.model.roomForm.RoomSaveForm;
@@ -101,4 +104,9 @@ public class RoomController {
         return "redirect:/rooms/detailRoom/{id}";
     }
 
+    @PostMapping("/rooms/findRoom")
+    public String findRoom(@RequestBody Reservation reservation){
+        log.info("reservation={}",reservation);
+        return "room/rooms";
+    }
 }

@@ -17,7 +17,6 @@ import springboot.rl.repository.ReviewRepository;
 import springboot.rl.repository.RoomRepository;
 
 import java.io.IOException;
-import java.util.List;
 
 @Slf4j
 @Service

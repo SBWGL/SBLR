@@ -26,4 +26,5 @@ public class RoomAPIController {
         roomService.reviewSave(principal.getUser(),id,review);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
+
 }

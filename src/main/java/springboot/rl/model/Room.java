@@ -31,7 +31,7 @@ public class Room {
     private int maxPerson;
     private int price;
 
-    @OneToMany(mappedBy = "room",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)// 하나의 방에는 여러개의 리뷰가 있다.
+    @OneToMany(mappedBy = "room",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties({"room"})// 무한 참조 방지
     @OrderBy("id desc")
     private List<Review> review;

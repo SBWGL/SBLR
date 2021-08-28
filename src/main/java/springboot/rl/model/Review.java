@@ -22,11 +22,11 @@ public class Review {
     @Column(nullable = false,length = 200)
     private String contents;
 
-    @ManyToOne// 하나의 방에 여러 개의 댓글
+    @ManyToOne
     @JoinColumn(name = "roomId")
     private Room room;
 
-    @ManyToOne// 한명의 유저가 여러 개의 댓글
+    @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
     @CreationTimestamp
