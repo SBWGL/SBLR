@@ -1,5 +1,5 @@
 # Springboot_SM
-# 스프링부트 공부겸 자기개발을 위한 호텔 예약 프로젝트(2021/08/23 - 2021/08/31) - 1차(수정 요망)
+# 스프링부트 공부겸 자기개발을 위한 호텔 예약 프로젝트(2021/08/23 - 2021/08/31) - 1차(추가 작업 필요)
 ---
 ***use SpringBoot + thymeleaf + JPA + SpringSecurity + OAuth2 + Bootstrap + jQuary***
 
