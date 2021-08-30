@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table
+        border="1"
+        width="50%"
+        height="200"
+        cellspacing="5">
+    <caption>예약 현황</caption>
+    <thead>
+    <tr align="center" bgcolor="white">
+        <td></td>
+        <th>구매자이름</th>
+        <th>예약 객실</th>
+        <th>구매 금액</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr align="center" bgcolor="white" th:each="buyInfo : ${allBuyInfo}">
+        <td></td>
+        <td th:text="${buyInfo.buyerName}">구매자 이름</td>
+        <td th:text="${buyInfo.buyRoom}">예약 객실</td>
+        <td th:text="${buyInfo.paid}">구매 금액</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

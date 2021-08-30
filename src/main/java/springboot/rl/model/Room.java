@@ -5,8 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 
 @Data
@@ -35,4 +39,12 @@ public class Room {
     @JsonIgnoreProperties({"room"})// 무한 참조 방지
     @OrderBy("id desc")
     private List<Review> review;
+
+    @OneToMany(mappedBy = "reservationRoom",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"reservationRoom"})
+    @OrderBy("id desc")
+    private List<Reservation> reservations;
+
+    @CreationTimestamp
+    private Timestamp endDate;
 }

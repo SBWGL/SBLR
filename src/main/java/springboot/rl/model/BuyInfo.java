@@ -7,24 +7,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Reservation {
+public class BuyInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(length = 50)
-    private String checkIn;
-    @Column(length = 50)
-    private String checkOut;
-    private String roomType;
-    private int countPerson;
+    private int buyNum;
+    private int paid;
+    @Column(length = 100)
+    private String buyerName;
+    @Column(length = 100)
+    private String buyRoom;
 
-    @ManyToOne
-    @JoinColumn(name = "roomId")
-    private Room reservationRoom;
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import springboot.rl.config.auth.PrincipalDetails;
 import springboot.rl.dto.ResponseDto;
 import springboot.rl.model.Review;
+import springboot.rl.model.BuyInfo;
 import springboot.rl.service.RoomService;
 
 @Slf4j
@@ -25,6 +26,13 @@ public class RoomAPIController {
                                           @AuthenticationPrincipal PrincipalDetails principal){
         roomService.reviewSave(principal.getUser(),id,review);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+    @PostMapping("/api/rooms/reservation")
+    public ResponseDto<Integer> buyInfo(@RequestBody BuyInfo buyInfo){
+        log.info("buyInfo={}",buyInfo);
+        roomService.buyInfo(buyInfo);
+        return new ResponseDto<>(HttpStatus.OK.value(),1);
     }
 
 }

@@ -7,16 +7,24 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springboot.rl.file.FileStore;
+import springboot.rl.model.Reservation;
 import springboot.rl.model.Review;
 import springboot.rl.model.Room;
 import springboot.rl.model.User;
+import springboot.rl.model.BuyInfo;
 import springboot.rl.model.roomForm.RoomSaveForm;
 import springboot.rl.model.roomForm.RoomUpdateForm;
 import springboot.rl.model.roomForm.UploadFile;
+import springboot.rl.repository.BuyInfoRepository;
+import springboot.rl.repository.ReservationRepository;
 import springboot.rl.repository.ReviewRepository;
 import springboot.rl.repository.RoomRepository;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -28,6 +36,10 @@ public class RoomService {
     private FileStore fileStore;
     @Autowired
     private ReviewRepository reviewRepository;
+    @Autowired
+    private ReservationRepository reservationRepository;
+    @Autowired
+    private BuyInfoRepository buyInfoRepository;
 
     @Transactional
     public void save(RoomSaveForm form, String selected) throws IOException {
@@ -116,4 +128,44 @@ public class RoomService {
             return new IllegalArgumentException("요청하신 리뷰를 찾을 수 없습니다.");
         }));
     }
+
+//    public void saveReservation(Reservation reservation){
+//        reservationRepository.save(reservation);
+//    }
+
+    public List<Room> findRoomByReservation(Reservation reservation) throws ParseException {
+        List<Room> rooms = roomRepository.findAll();
+        List<Room> findRoom = new ArrayList<>();
+        for (Room room : rooms) {
+            String[] convertDate = reservation.getCheckIn().split("/");
+            String month = convertDate[0];
+            String day = convertDate[1];
+            String year = convertDate[2];
+            Timestamp RstartDate = Timestamp.valueOf(year + "-" + month + "-" + day + " 00:00:00.000000");
+            Timestamp endDate = room.getEndDate();
+            if (RstartDate.after(endDate) && reservation.getRoomType().equals(room.getRoomType()) &&
+                    reservation.getCountPerson() <= room.getMaxPerson()){
+                findRoom.add(room);
+            }
+        }
+        for (Room room : findRoom) {
+            findRooms.add(room);
+        }
+        return findRoom;
+    }
+
+    public static List<Room> findRooms = new ArrayList<>();
+
+    public List<Room> getFindRoom(){
+        return findRooms;
+    }
+
+    public void buyInfo(BuyInfo buyInfo){
+        buyInfoRepository.save(buyInfo);
+    }
+
+    public List<BuyInfo> getByInfo(){
+        return buyInfoRepository.findAll();
+    }
+
 }
