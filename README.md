@@ -4,7 +4,7 @@
 ***use SpringBoot + thymeleaf + JPA + SpringSecurity + OAuth2 + Bootstrap + jQuary***
 
 - 회원 페이지
-	OAuth2-client 인증을 통한 Google, Facebook, Naver, Kakao 로그인 및 회원가입
+	- OAuth2-client 인증을 통한 Google, Facebook, Naver, Kakao 로그인 및 회원가입
 
 - 객실 페이지
 	- 객실 보기
