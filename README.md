@@ -1,7 +1,7 @@
 # Springboot_SM
 # 스프링부트 공부겸 자기개발을 위한 호텔 예약 프로젝트(2021/08/23 - 2021/08/31) - 1차(추가 작업 필요)
 ---
-***use SpringBoot + thymeleaf + JPA + SpringSecurity + OAuth2 + Bootstrap + jQuary***
+***use SpringBoot + thymeleaf + Spring data JPA + SpringSecurity + OAuth2 + Bootstrap + jQuary***
 
 - 회원 페이지
 	- OAuth2-client 인증을 통한 Google, Facebook, Naver, Kakao 로그인 및 회원가입
