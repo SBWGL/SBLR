@@ -28,20 +28,20 @@ spring:
       client:
         registration:
           google:
-            client-id: 507119184618-fgap65bp6p579so9hhjtvqd01o2jcbik.apps.googleusercontent.com
-            client-secret: 95HioKSFeCxoulTdpHI5BCCI
+            client-id: input
+            client-secret: input
             scope:
               - email
               - profile
           facebook:
-            client-id: 1172207466624493
-            client-secret: 47200f088d41efc578caaab9c08a9e1b
+            client-id: input
+            client-secret: input
             scope:
               - email
               - public_profile
           naver:
-            client-id: m5FZh88W_0kbz7gcQCuB
-            client-secret: KLWTHDNSgy
+            client-id: input
+            client-secret: input
             scope:
               - name
               - email
@@ -49,8 +49,8 @@ spring:
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8777/login/oauth2/code/naver
           kakao:
-            client-id: f738810ddcb5cc189ec62b38ffd28628
-            client-secret: Ne75L6KT07SFJrnvVx8PhM9bunNrSCf0
+            client-id: input
+            client-secret: input
             clientAuthenticationMethod: post
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8777/login/oauth2/code/kakao
