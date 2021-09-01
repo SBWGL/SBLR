@@ -6,8 +6,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/lr?serverTimezone=Asia/Seoul
-    username: input
-    password: input
+    username: root
+    password: 1234
   jpa:
     open-in-view: true
     hibernate:
@@ -28,20 +28,20 @@ spring:
       client:
         registration:
           google:
-            client-id: input
-            client-secret: input
+            client-id: 507119184618-fgap65bp6p579so9hhjtvqd01o2jcbik.apps.googleusercontent.com
+            client-secret: 95HioKSFeCxoulTdpHI5BCCI
             scope:
               - email
               - profile
           facebook:
-            client-id: input
-            client-secret: input
+            client-id: 1172207466624493
+            client-secret: 47200f088d41efc578caaab9c08a9e1b
             scope:
               - email
               - public_profile
           naver:
-            client-id: input
-            client-secret: input
+            client-id: m5FZh88W_0kbz7gcQCuB
+            client-secret: KLWTHDNSgy
             scope:
               - name
               - email
@@ -49,8 +49,8 @@ spring:
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8777/login/oauth2/code/naver
           kakao:
-            client-id: input
-            client-secret: input
+            client-id: f738810ddcb5cc189ec62b38ffd28628
+            client-secret: Ne75L6KT07SFJrnvVx8PhM9bunNrSCf0
             clientAuthenticationMethod: post
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8777/login/oauth2/code/kakao
